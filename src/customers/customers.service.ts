@@ -22,4 +22,8 @@ export class CustomersService {
 
     return await this.customerRepository.createCustomer(customer)
   }
+
+  async getCustomerById(id: string): Promise<Customer> {
+    return await this.customerRepository.getCustomerById(id)
+  }
 }

@@ -1,4 +1,4 @@
-import { Customer } from './customer.entity'
+import { Customer } from '../customers/customer.entity'
 
 export const createStubCustomer = () => {
   const stubCustomer = new Customer()

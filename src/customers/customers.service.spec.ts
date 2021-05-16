@@ -38,4 +38,16 @@ describe('CustomersService', () => {
       expect(result).toEqual(stubCustomer)
     })
   })
+
+  describe('getCustomerById', () => {
+    it('should return a customer', async () => {
+      const mockGetCustomerById = customersRepository.getCustomerById as jest.Mock
+      mockGetCustomerById.mockResolvedValue(stubCustomer)
+
+      const result = await customersService.getCustomerById('1')
+
+      expect(customersRepository.getCustomerById).toHaveBeenCalledWith('1')
+      expect(result).toEqual(stubCustomer)
+    })
+  })
 })

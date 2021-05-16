@@ -7,6 +7,7 @@ import { CreateCustomerDto } from './dto/create-customer.dto'
 jest.mock('./customers.service')
 
 const stubCustomer = new Customer()
+stubCustomer._id = '1'
 stubCustomer.name = 'Test company'
 stubCustomer.address = '123 Smith Rd'
 stubCustomer.email = 'abc@def.com'
@@ -44,6 +45,26 @@ describe('CustomersController', () => {
       const result = await customersController.createCustomer(createCustomerDto)
 
       expect(customersService.createCustomer).toHaveBeenCalledWith(createCustomerDto)
+      expect(result).toEqual(stubCustomer)
+    })
+  })
+
+  describe('getCustomerById', () => {
+    const createCustomerDto: CreateCustomerDto = {
+      name: 'test customer',
+      address: '123 Smith Rd',
+      email: 'abc@def.com',
+      phone1: { name: 'Andy', number: '07000000000' },
+      phone2: { name: 'Andy', number: '07000000000' },
+      phone3: { name: 'Andy', number: '07000000000' },
+    }
+    it('should return a customer successfully', async () => {
+      const mockGetCustomerById = customersService.getCustomerById as jest.Mock
+      mockGetCustomerById.mockResolvedValue(stubCustomer)
+
+      const result = await customersController.getCustomer('1')
+
+      expect(customersService.getCustomerById).toHaveBeenCalledWith(stubCustomer._id)
       expect(result).toEqual(stubCustomer)
     })
   })
